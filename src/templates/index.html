@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8000/style.css">
+</head>
+<body>
+    <div class="title_container">
+        <h1>{{ message }}</h1>
+    </div>
+    {% for form in forms %}
+    <div class="message_container">
+        <form action="/send" method="post">
+            <span>{{ form.title }}</span>
+            <ul>
+                <li>
+                    <label for="{{ form.sender.toLowerCase() }}">{{ form.sender }}</label>
+                    <input type="text" id="{{ form.sender.toLowerCase() }}" name="sender" />
+                </li>
+                <li>
+                    <label for="{{ form.recipient.toLowerCase() }}">{{ form.recipient }}</label>
+                    <input type="text" id="{{ form.recipient.toLowerCase() }}" name="recipient" />
+                </li>
+                <li>
+                    <label for="{{ form.message.toLowerCase() }}">{{ form.message }}</label>
+                    <textarea id="{{ form.message.toLowerCase() }}" name="text_message"></textarea>
+                </li>
+                <li class="button">
+                    <button type="submit">Send</button>
+                </li>
+            </ul>
+            {% endfor %}
+    </div>
+</body>
+</html>
+
