@@ -65,7 +65,6 @@ function validateInput(input, message) {
 
 // Render the index page
 app.get('/', (req, res) => {
-    console.log(req.query)
     res.status(200);
     res.send(nunjucks.render('index.html', content));
 });
@@ -87,16 +86,13 @@ app.post('/send', (req, res) => {
             to: recipient,
             from: sender
         })
-        .then((message) => console.log(message.sid));
+        .then((message) => console.log(message));
 
-    //console.log(req.body);
     res.status(200);
     res.send(nunjucks.render('index.html', content));
 });
 
-
 // Start the server
 app.listen(3001, () => {
-    console.log('Listening on 3001');
+    console.log('Listening on 3000');
 });
-
