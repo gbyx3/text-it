@@ -36,6 +36,34 @@ const content = {
         }]
 };
 
+function validateInput(input, message) {
+    // Validate that the sender only contains digits, characters and is not longer than 15 characters
+    if (input === 'sender' && !message.match(/^[a-zA-Z0-9]{1,15}$/)) {
+        console.log(`Invalid sender: ${message}`);
+        res.status(400);
+        res.send(nunjucks.render('index.html', content));
+        return;
+    }
+
+    // Validate that the recipient is a valid phone number
+    if (input === 'recipient' && !message.match(/^\+?[1-9]\d{1,14}$/)) {
+        console.log(`Invalid recipient: ${recipient}`);
+        res.status(400);
+        res.send(nunjucks.render('index.html', content));
+        return;
+    }
+
+    // Validate that the message is not empty and not longer than 160 characters
+    if (input === 'text_message' && (!message || message.length > 160)) {
+        console.log(`Invalid text_message: ${message}`);
+        res.status(400);
+        res.send(nunjucks.render('index.html', content));
+        return;
+    }
+    return;
+}
+
+// Render the index page
 app.get('/', (req, res) => {
     console.log(req.query)
     res.status(200);
@@ -44,6 +72,10 @@ app.get('/', (req, res) => {
 
 // Retrieve the form data and send the message to twilio
 app.post('/send', (req, res) => {
+    for (var key in req.body) {
+        validateInput(key, req.body[key]);
+    }
+
     var sender = req.body.sender;
     var recipient = req.body.recipient;
     var message = req.body.text_message
