@@ -78,8 +78,18 @@ app.post('/send', (req, res) => {
 
     var sender = req.body.sender;
     var recipient = req.body.recipient;
-    var message = req.body.text_message
-    console.log(req.body);
+    var text_message = req.body.text_message
+
+    const client = require('twilio')(accountSid, authToken);
+    client.messages
+        .create({
+            body: text_message,
+            to: recipient,
+            from: sender
+        })
+        .then((message) => console.log(message.sid));
+
+    //console.log(req.body);
     res.status(200);
     res.send(nunjucks.render('index.html', content));
 });
