@@ -2,7 +2,10 @@ const nunjucks = require('nunjucks');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const accountSid = process.env.twilioAccountSid;
+const authToken = process.env.twilioAuthToken;
 
+// Configure body parse to read request body
 app.use(bodyParser.urlencoded({ 
     extended: false 
 }));
@@ -12,17 +15,15 @@ nunjucks.configure('templates', {
     express: app
 });
 
-const accountSid = process.env.twilioAccountSid;
-const authToken = process.env.twilioAuthToken;
+// Check if twilio credentials are set
 if (!accountSid || !authToken) {
     console.log('Failed to read twilio credentials from environment, exiting.');
     process.exit(1)
 } else {
     console.log(`Will login as: ${accountSid}`);
-    const client = require('twilio')(accountSid, authToken);
 }
 
-
+// This is the content that will be rendered
 const content = {
     title: 'Text-it',
     message: 'Text it application',
@@ -41,6 +42,7 @@ app.get('/', (req, res) => {
     res.send(nunjucks.render('index.html', content));
 });
 
+// Retrieve the form data and send the message to twilio
 app.post('/send', (req, res) => {
     var sender = req.body.sender;
     var recipient = req.body.recipient;
@@ -51,6 +53,7 @@ app.post('/send', (req, res) => {
 });
 
 
+// Start the server
 app.listen(3001, () => {
     console.log('Listening on 3001');
 });
