@@ -6,6 +6,9 @@ Send arbitrary sms messages to and from numbers.
 </p>
 
 # Installation
+### Twilio
+https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-How-to-Change-Them  
+
 ### Docker
 ```
 git clone https://github.com/gbyx3/text-it
