@@ -26,7 +26,7 @@ if (!accountSid || !authToken) {
 // This is the content that will be rendered
 const content = {
     title: 'Text-it',
-    message: 'Text it application',
+    message: 'Text-IT',
     forms: [
         {
             title:'Send a message', 

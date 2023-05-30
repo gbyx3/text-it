@@ -1,36 +1,79 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="http://127.0.0.1:8000/style.css">
-</head>
-<body>
-    <div class="title_container">
-        <h1>{{ message }}</h1>
-    </div>
-    {% for form in forms %}
-    <div class="message_container">
+    <head>
+        <title>{{ title }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-color: #1a1a1a;
+                color: #ffc107;
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 20px;
+            }
+
+            h2 {
+                text-align: center;
+                color: #ffc107;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 10px;
+                margin-top: 10px;
+            }
+
+            input[type="text"],
+            textarea {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                background-color: #212121;
+                border: none;
+                border-bottom: 2px solid #ffc107;
+                color: #ffc107;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"] {
+                background-color: #ffc107;
+                color: #1a1a1a;
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                transition: background-color 0.3s ease;
+                margin-top: 20px;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #ffab40;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>{{ message }}</h2>
+        {% for form in forms %}
         <form action="/send" method="post">
-            <span>{{ form.title }}</span>
-            <ul>
-                <li>
-                    <label for="{{ form.sender.toLowerCase() }}">{{ form.sender }}</label>
-                    <input type="text" id="{{ form.sender.toLowerCase() }}" name="sender" />
-                </li>
-                <li>
-                    <label for="{{ form.recipient.toLowerCase() }}">{{ form.recipient }}</label>
-                    <input type="text" id="{{ form.recipient.toLowerCase() }}" name="recipient" />
-                </li>
-                <li>
-                    <label for="{{ form.message.toLowerCase() }}">{{ form.message }}</label>
-                    <textarea id="{{ form.message.toLowerCase() }}" name="text_message"></textarea>
-                </li>
-                <li class="button">
-                    <button type="submit">Send</button>
-                </li>
-            </ul>
-            {% endfor %}
-    </div>
-</body>
+            <label for="{{ form.sender|lower }}">{{ form.sender }}</label>
+            <input type="text" id="{{ form.sender|lower }}" name="sender" />
+
+            <label for="{{ form.recipient|lower }}">{{ form.recipient }}</label>
+            <input type="text" id="{{ form.recipient|lower }}" name="recipient" />
+
+            <label for="{{ form.message|lower }}">{{ form.message }}</label>
+            <textarea id="{{ form.message|lower }}" name="text_message"></textarea>
+
+            <input type="submit" value="Send">
+        </form>
+        {% endfor %}
+    </body>
 </html>
 
