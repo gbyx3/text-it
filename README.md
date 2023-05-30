@@ -1,9 +1,9 @@
 # Text-it
 Send arbitrary sms messages to and from numbers.  
 
-
+<p align="center">
 <img src="https://github.com/gbyx3/text-it/assets/12796666/d9cfbd25-1f03-4e69-a3d1-bcb285a0e46a" height="400">
-
+</p>
 
 # Installation
 ### Docker
